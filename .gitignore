@@ -1,0 +1,63 @@
+# ─── OS / IDE ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ─── Node.js ──────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─── Build / Dist ─────────────────────────────────────────
+dist/
+build/
+out/
+
+# ─── Expo / React Native ──────────────────────────────────
+.expo/
+.expo-shared/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# ─── Variables de entorno ─────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─── Backend: archivos de runtime ─────────────────────────
+backend/uploads/
+backend/logs/
+
+# ─── Base de datos local ──────────────────────────────────
+*.sqlite
+*.db
+
+# ─── Agente de IA: skills locales ─────────────────────────
+# Las skills se instalan localmente; consulta skill_agent_install.md
+.agent/skills/
+
+# ─── Antigravity / Gemini ─────────────────────────────────
+.gemini/
+
+# ─── Logs ─────────────────────────────────────────────────
+logs/
+*.log
+
+# ─── Temporales ───────────────────────────────────────────
+*.tmp
+*.temp
+.cache/
