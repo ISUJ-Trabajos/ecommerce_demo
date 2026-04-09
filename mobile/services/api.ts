@@ -12,6 +12,7 @@ const api = axios.create({
   timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
+    'Bypass-Tunnel-Reminder': 'true', // Permite consumir Localtunnel como API silenciosamente
   },
 });
 
