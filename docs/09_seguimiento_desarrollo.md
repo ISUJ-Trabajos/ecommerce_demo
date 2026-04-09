@@ -151,16 +151,16 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 ## FASE 3 — MOD-04: Carrito de Compras
 
 ### Backend
-- [ ] F3-B01 · `cart.routes.js`
-- [ ] F3-B02 · `cart.controller.js`
-- [ ] F3-B03 · `cart.service.js`
+- [x] F3-B01 · `cart.routes.js`
+- [x] F3-B02 · `cart.controller.js`
+- [x] F3-B03 · `cart.service.js`
 
 ### Mobile
-- [ ] F3-M01 · `store/cartStore.ts`
-- [ ] F3-M02 · `services/cartService.ts`
-- [ ] F3-M03 · `hooks/useCart.ts`
-- [ ] F3-M04 · `components/CartItem.tsx`
-- [ ] F3-M05 · `app/(app)/cart.tsx`
+- [x] F3-M01 · `store/cartStore.ts`
+- [x] F3-M02 · `services/cartService.ts`
+- [x] F3-M03 · `hooks/useCart.ts`
+- [x] F3-M04 · `components/CartItem.tsx`
+- [x] F3-M05 · `app/(app)/cart.tsx`
 
 ### Tests Fase 3
 - [ ] T3-01 · Agregar: validación stock (ok, 409 sin stock, 409 qty>stock)
@@ -169,7 +169,7 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 - [ ] T3-04 · cartStore: addItem, removeItem, clearCart, total
 - [ ] T3-05 · CartItem: StockAlert visible cuando aplica
 
-**Estado Fase 3**: `[ ]` Pendiente
+**Estado Fase 3**: `[x]` Completado (Pendiente pruebas)
 
 ---
 
@@ -262,11 +262,11 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 | 0 | Infraestructura | ✅ Completado | 100% |
 | 1 | Autenticación | ✅ Completado | 95% |
 | 2 | Catálogo + Detalle | ✅ Completado | 90% |
-| 3 | Carrito | ⬜ Pendiente | 0% |
+| 3 | Carrito | ✅ Completado | 100% |
 | 4 | Checkout | ⬜ Pendiente | 0% |
 | 5 | Historial Pedidos | ⬜ Pendiente | 0% |
 | 6 | Admin | ⬜ Pendiente | 0% |
 | 7 | Integración + QA | ⬜ Pendiente | 0% |
 
-**Progreso Total**: ~37%
+**Progreso Total**: ~51%
 

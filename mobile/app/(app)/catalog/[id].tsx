@@ -16,6 +16,7 @@ import Badge from '@/components/ui/Badge';
 import StockAlert from '@/components/ui/StockAlert';
 import { getProductById, Product } from '@/services/productService';
 import { API_BASE_URL } from '@/constants/api';
+import { useCart } from '@/hooks/useCart';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_HEIGHT = 260;
@@ -32,6 +33,7 @@ export default function ProductDetailScreen() {
   const [error, setError] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [addPressed, setAddPressed] = useState(false);
+  const { addItemToCart, isLoading: isAddingToCart } = useCart();
 
   useEffect(() => {
     if (!id) return;
@@ -102,9 +104,13 @@ export default function ProductDetailScreen() {
     if (quantity < product.stock) setQuantity((q) => q + 1);
   };
 
-  const handleAddToCart = () => {
-    // En Fase 3 se implementará la lógica real de agregar al carrito
-    console.log(`Agregar al carrito: ${product.name} x ${quantity}`);
+  const handleAddToCart = async () => {
+    try {
+      await addItemToCart(product.id, quantity);
+      router.push('/cart');
+    } catch (err: any) {
+      alert(err.message || 'Error al agregar al carrito');
+    }
   };
 
   return (
@@ -224,10 +230,12 @@ export default function ProductDetailScreen() {
             onPress={handleAddToCart}
             onPressIn={() => setAddPressed(true)}
             onPressOut={() => setAddPressed(false)}
-            disabled={isOutOfStock}
+            disabled={isOutOfStock || isAddingToCart}
           >
             {isOutOfStock ? (
               <Text style={styles.addButtonTextDisabled}>SIN STOCK</Text>
+            ) : isAddingToCart ? (
+              <ActivityIndicator color={Colors.bg} />
             ) : (
               <Text style={styles.addButtonText}>AGREGAR AL CARRITO</Text>
             )}
