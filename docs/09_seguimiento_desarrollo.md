@@ -1,6 +1,6 @@
 # Seguimiento del Desarrollo — ECommerce Demo
 
-> **Última actualización**: 2026-04-08
+> **Última actualización**: 2026-04-09
 > Este documento se actualiza al completar cada tarea. Utilizar como checklist de seguimiento.
 
 ---
@@ -101,34 +101,50 @@
 
 **Estado Fase 1**: `[x]` Completado (excepto T1-04)
 
+### Observaciones Fase 1
+
+**[RESUELTO — 2026-04-09]** Al registrar un cliente e intentar iniciar sesión como admin, el login fallaba.
+
+- **Causa raíz**: El hash bcrypt del admin seed en `07_schema.sql` era un hash genérico que **no correspondía** a la contraseña `Admin1234!` documentada.
+- **Solución**: Se regeneró el hash bcrypt correcto con `bcryptjs.hash('Admin1234!', 10)` y se actualizó tanto el schema SQL como la BD activa.
+- **Verificación**: Login admin con `admin@ecommerce.local` / `Admin1234!` funciona correctamente.
+
+El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login, no se obtenía un token válido, y el interceptor Axios lo reportaba como token inválido.
+
 ---
 
 ## FASE 2 — MOD-02 + MOD-03: Catálogo y Detalle
 
 ### Backend
-- [ ] F2-B01 · `categories.routes.js`
-- [ ] F2-B02 · `categories.controller.js`
-- [ ] F2-B03 · `products.routes.js` (GET)
-- [ ] F2-B04 · `products.controller.js` (GET)
-- [ ] F2-B05 · `products.service.js` (listado, detalle)
+- [x] F2-B01 · `categories.routes.js` — GET /api/categories
+- [x] F2-B02 · `categories.controller.js` — listCategories
+- [x] F2-B03 · `products.routes.js` (GET) — listado + detalle con JWT
+- [x] F2-B04 · `products.controller.js` (GET) — express-validator + filtro categoría
+- [x] F2-B05 · `products.service.js` (listado, detalle) — usa v_products_full
+
+### Datos de prueba
+- [x] F2-D01 · 16 productos seed con stock variado (alto, bajo, 0)
+- [x] F2-D02 · 16 imágenes de producto en `backend/uploads/`
+- [x] F2-D03 · 1 producto desactivado (`Set Labiales Matte x3`) para test
+- [x] F2-D04 · Hash admin regenerado para `Admin1234!`
 
 ### Mobile
-- [ ] F2-M01 · `services/productService.ts`
-- [ ] F2-M02 · `components/ProductCard.tsx`
-- [ ] F2-M03 · `components/ui/Badge.tsx`
-- [ ] F2-M04 · `components/ui/StockAlert.tsx`
-- [ ] F2-M05 · `app/(app)/catalog/index.tsx`
-- [ ] F2-M06 · `app/(app)/catalog/[id].tsx`
+- [x] F2-M01 · `services/productService.ts` — getProducts, getProductById
+- [x] F2-M02 · `components/ProductCard.tsx` — card con imagen, badge, stock, overlay
+- [x] F2-M03 · `components/ui/Badge.tsx` — badge reutilizable
+- [x] F2-M04 · `components/ui/StockAlert.tsx` — alerta inline condicional
+- [x] F2-M05 · `app/(app)/catalog/index.tsx` — grid 2 cols + tabs + pull-to-refresh
+- [x] F2-M06 · `app/(app)/catalog/[id].tsx` — detalle + selector qty + stock
 - [x] F2-M07 · `components/layout/ScreenWrapper.tsx` (completado en Fase 0)
 
 ### Tests Fase 2
-- [ ] T2-01 · Listado: solo activos, filtra por categoría
-- [ ] T2-02 · Detalle: retorna stock, 404 si no existe
-- [ ] T2-03 · Categorías: retorna 4 categorías
-- [ ] T2-04 · ProductCard: 3 variantes de stock
-- [ ] T2-05 · StockAlert: renderiza/no renderiza correctamente
+- [x] T2-01 · Listado: solo activos, filtra por categoría (4/4 ✅)
+- [x] T2-02 · Detalle: retorna stock, null si no existe (4/4 ✅)
+- [x] T2-03 · Categorías: retorna 4 categorías (3/3 ✅)
+- [ ] T2-04 · ProductCard: 3 variantes de stock (pendiente — requiere RNTL)
+- [ ] T2-05 · StockAlert: renderiza/no renderiza correctamente (pendiente — requiere RNTL)
 
-**Estado Fase 2**: `[ ]` Pendiente
+**Estado Fase 2**: `[x]` Completado (excepto T2-04 y T2-05 — requieren RNTL)
 
 ---
 
@@ -245,12 +261,12 @@
 |------|-------------|--------|----------|
 | 0 | Infraestructura | ✅ Completado | 100% |
 | 1 | Autenticación | ✅ Completado | 95% |
-| 2 | Catálogo + Detalle | ⬜ Pendiente | 0% |
+| 2 | Catálogo + Detalle | ✅ Completado | 90% |
 | 3 | Carrito | ⬜ Pendiente | 0% |
 | 4 | Checkout | ⬜ Pendiente | 0% |
 | 5 | Historial Pedidos | ⬜ Pendiente | 0% |
 | 6 | Admin | ⬜ Pendiente | 0% |
 | 7 | Integración + QA | ⬜ Pendiente | 0% |
 
-**Progreso Total**: ~25%
+**Progreso Total**: ~37%
 
