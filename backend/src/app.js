@@ -15,8 +15,8 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 // ─── Rutas de la API ──────────────────────────────────────
 // Se registran conforme se implementa cada módulo
 app.use('/api/auth',       require('./modules/auth/auth.routes'));
-// app.use('/api/categories', require('./modules/categories/categories.routes'));
-// app.use('/api/products',   require('./modules/products/products.routes'));
+app.use('/api/categories', require('./modules/categories/categories.routes'));
+app.use('/api/products',   require('./modules/products/products.routes'));
 // app.use('/api/cart',       require('./modules/cart/cart.routes'));
 // app.use('/api/orders',     require('./modules/orders/orders.routes'));
 
