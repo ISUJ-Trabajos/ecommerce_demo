@@ -135,7 +135,7 @@ INSERT INTO categories (name, slug) VALUES
 INSERT INTO users (name, email, password, role) VALUES (
     'Super Admin',
     'admin@ecommerce.local',
-    '$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh7y',
+    '$2a$10$9l8OGnQ4.gLbAGL57pPU6.Ku5e0CBPHWoiAjoK0gaVtoYO2nk3eD.',
     'admin'
 );
 
