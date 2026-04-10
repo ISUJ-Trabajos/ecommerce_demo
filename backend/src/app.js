@@ -18,7 +18,7 @@ app.use('/api/auth',       require('./modules/auth/auth.routes'));
 app.use('/api/categories', require('./modules/categories/categories.routes'));
 app.use('/api/products',   require('./modules/products/products.routes'));
 app.use('/api/cart',       require('./modules/cart/cart.routes'));
-// app.use('/api/orders',     require('./modules/orders/orders.routes'));
+app.use('/api/orders',     require('./modules/orders/orders.routes'));
 
 // ─── Ruta de health check ─────────────────────────────────
 app.get('/api/health', (req, res) => {

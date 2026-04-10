@@ -163,11 +163,11 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 - [x] F3-M05 · `app/(app)/cart.tsx`
 
 ### Tests Fase 3
-- [ ] T3-01 · Agregar: validación stock (ok, 409 sin stock, 409 qty>stock)
-- [ ] T3-02 · Modificar cantidad: re-validar stock
-- [ ] T3-03 · Eliminar: borra ítem
-- [ ] T3-04 · cartStore: addItem, removeItem, clearCart, total
-- [ ] T3-05 · CartItem: StockAlert visible cuando aplica
+- [x] T3-01 · Agregar: validación stock (ok, 409 sin stock, 409 qty>stock)
+- [x] T3-02 · Modificar cantidad: re-validar stock
+- [x] T3-03 · Eliminar: borra ítem
+- [x] T3-04 · cartStore: addItem, removeItem, clearCart, total
+- [x] T3-05 · CartItem: StockAlert visible cuando aplica
 
 **Estado Fase 3**: `[x]` Completado (Pendiente pruebas)
 
@@ -176,44 +176,44 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 ## FASE 4 — MOD-05: Checkout y Confirmación
 
 ### Backend
-- [ ] F4-B01 · `orders.routes.js` (POST)
-- [ ] F4-B02 · `orders.controller.js` (checkout)
-- [ ] F4-B03 · `orders.service.js` (transacción atómica)
+- [x] F4-B01 · `orders.routes.js` (POST)
+- [x] F4-B02 · `orders.controller.js` (checkout)
+- [x] F4-B03 · `orders.service.js` (transacción atómica)
 
 ### Mobile
-- [ ] F4-M01 · `services/orderService.ts` (createOrder)
-- [ ] F4-M02 · `app/(app)/checkout.tsx`
-- [ ] F4-M03 · `components/OrderSuccessOverlay.tsx`
+- [x] F4-M01 · `services/orderService.ts` (createOrder)
+- [x] F4-M02 · `app/(app)/checkout.tsx`
+- [x] F4-M03 · `components/OrderSuccessOverlay.tsx`
 
 ### Tests Fase 4
-- [ ] T4-01 · Happy path: orden creada, stock descontado, carrito limpio
-- [ ] T4-02 · Rollback: stock insuficiente, orden no creada
-- [ ] T4-03 · Precio congelado en order_items
-- [ ] T4-04 · Carrito vacío → error
+- [x] T4-01 · Happy path: orden creada, stock descontado, carrito limpio
+- [x] T4-02 · Rollback: stock insuficiente, orden no creada
+- [x] T4-03 · Precio congelado en order_items
+- [x] T4-04 · Carrito vacío → error
 
-**Estado Fase 4**: `[ ]` Pendiente
+**Estado Fase 4**: `[x]` Completado
 
 ---
 
 ## FASE 5 — MOD-06: Historial de Pedidos
 
 ### Backend
-- [ ] F5-B01 · `orders.routes.js` (GET endpoints)
-- [ ] F5-B02 · `orders.controller.js` (listado, detalle)
-- [ ] F5-B03 · `orders.service.js` (queries)
+- [x] F5-B01 · `orders.routes.js` (GET endpoints)
+- [x] F5-B02 · `orders.controller.js` (listado, detalle)
+- [x] F5-B03 · `orders.service.js` (queries)
 
 ### Mobile
-- [ ] F5-M01 · `services/orderService.ts` (getOrders, getOrderById)
-- [ ] F5-M02 · `components/OrderCard.tsx`
-- [ ] F5-M03 · `app/(app)/orders/index.tsx`
-- [ ] F5-M04 · `app/(app)/orders/[id].tsx`
+- [x] F5-M01 · `services/orderService.ts` (getOrders, getOrderById)
+- [x] F5-M02 · `components/OrderCard.tsx`
+- [x] F5-M03 · `app/(app)/orders/index.tsx`
+- [x] F5-M04 · `app/(app)/orders/[id].tsx`
 
 ### Tests Fase 5
-- [ ] T5-01 · Listado retorna solo pedidos del usuario
-- [ ] T5-02 · Detalle incluye order_items
-- [ ] T5-03 · OrderCard: expande/colapsa
+- [x] T5-01 · Listado retorna solo pedidos del usuario
+- [x] T5-02 · Detalle incluye order_items
+- [x] T5-03 · OrderCard: expande/colapsa
 
-**Estado Fase 5**: `[ ]` Pendiente
+**Estado Fase 5**: `[x]` Completado
 
 ---
 
@@ -263,10 +263,10 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 | 1 | Autenticación | ✅ Completado | 95% |
 | 2 | Catálogo + Detalle | ✅ Completado | 90% |
 | 3 | Carrito | ✅ Completado | 100% |
-| 4 | Checkout | ⬜ Pendiente | 0% |
-| 5 | Historial Pedidos | ⬜ Pendiente | 0% |
+| 4 | Checkout | ✅ Completado | 100% |
+| 5 | Historial Pedidos | ✅ Completado | 100% |
 | 6 | Admin | ⬜ Pendiente | 0% |
 | 7 | Integración + QA | ⬜ Pendiente | 0% |
 
-**Progreso Total**: ~51%
+**Progreso Total**: ~75%
 

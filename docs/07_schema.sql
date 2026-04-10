@@ -264,7 +264,7 @@ BEGIN
         SELECT ci.product_id, ci.quantity, p.price, p.stock, p.name
         FROM cart_items ci
         INNER JOIN products p ON p.id = ci.product_id
-        WHERE ci.user_id = p_user_id;
+        WHERE ci.user_id = p_user_id FOR UPDATE;
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
