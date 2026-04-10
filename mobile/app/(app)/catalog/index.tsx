@@ -26,7 +26,6 @@ const CARD_GAP = 12;
  * Grid de productos con tabs de categoría, pull-to-refresh y estados de stock.
  */
 export default function CatalogScreen() {
-  const { user, logout } = useAuthStore();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -67,11 +66,6 @@ export default function CatalogScreen() {
     setRefreshing(false);
   };
 
-  const handleLogout = async () => {
-    await logout();
-    router.replace('/(auth)/login');
-  };
-
   const renderProduct = ({ item }: { item: Product }) => (
     <View style={styles.cardWrapper}>
       <ProductCard
@@ -93,27 +87,6 @@ export default function CatalogScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header personalizado */}
-      <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <Ionicons name="storefront-outline" size={24} color={Colors.accent} />
-          <Text style={styles.headerTitle}>ECommerce Demo</Text>
-        </View>
-        <View style={styles.headerRight}>
-          {user?.role === 'admin' && (
-            <Pressable
-              style={styles.headerBtn}
-              onPress={() => router.push('/(admin)/')}
-            >
-              <Ionicons name="build-outline" size={20} color={Colors.accent} />
-            </Pressable>
-          )}
-          <Pressable style={styles.headerBtn} onPress={handleLogout}>
-            <Ionicons name="log-out-outline" size={20} color={Colors.muted} />
-          </Pressable>
-        </View>
-      </View>
-
       {/* Tabs de categoría */}
       <ScrollView
         horizontal
@@ -185,34 +158,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bg,
-  },
-  // ─── Header ──────────────────────────────────────────
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: Tokens.spacing.screen,
-    paddingVertical: 5,
-    backgroundColor: Colors.surface,
-  },
-  headerLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  headerTitle: {
-    fontFamily: 'Syne_700Bold',
-    fontSize: 18,
-    color: Colors.text,
-  },
-  headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  headerBtn: {
-    padding: 8,
-    borderRadius: 8,
   },
   // ─── Tabs ────────────────────────────────────────────
   tabsScroll: {

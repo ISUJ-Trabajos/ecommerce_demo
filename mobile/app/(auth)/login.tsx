@@ -64,9 +64,13 @@ export default function LoginScreen() {
       >
         {/* Logo / Título */}
         <View style={styles.header}>
-          <Ionicons name="storefront-outline" size={56} color={Colors.accent} />
-          <Text style={styles.title}>ECommerce Demo</Text>
-          <Text style={styles.subtitle}>Tu tienda favorita</Text>
+          <View style={styles.headerContent}>
+            <Text style={styles.headerTitle}>ECM</Text>
+            <Text style={[styles.headerTitle, { color: Colors.accent }]}>DEMO</Text>
+          </View>
+          <Text style={styles.subtitle}>Ecommerce Demo</Text>
+          <View style={styles.divider} />
+          <Text style={styles.tagline}>Tu tienda favorita</Text>
         </View>
 
         {/* Formulario */}
@@ -147,17 +151,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 48,
   },
-  title: {
-    fontFamily: 'Syne_800ExtraBold',
-    fontSize: 28,
+  headerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitle: {
+    fontFamily: 'Syne_700Bold',
+    fontSize: 45,
     color: Colors.text,
-    marginTop: 16,
+    letterSpacing: 2,
   },
   subtitle: {
-    fontFamily: 'DMSans_400Regular',
-    fontSize: 14,
+    fontFamily: 'Syne_400Regular',
+    fontSize: 20,
     color: Colors.muted,
-    marginTop: 6,
+    marginTop: 8,
+  },
+  divider: {
+    width: 40,
+    height: 3,
+    backgroundColor: Colors.accentHover,
+    borderRadius: 2,
+    marginVertical: 12,
+  },
+  tagline: {
+    fontFamily: 'DMSans_700Bold',
+    fontSize: 14,
+    color: Colors.text,
+    letterSpacing: 1.5,
   },
   form: {
     gap: 16,

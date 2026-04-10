@@ -15,6 +15,7 @@ import {
 } from '@expo-google-fonts/jetbrains-mono';
 import * as SplashScreen from 'expo-splash-screen';
 import 'react-native-reanimated';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useAuthStore } from '@/store/authStore';
 
 // Prevenir que el splash se cierre antes de cargar fuentes
@@ -47,7 +48,7 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(auth)" />
@@ -55,6 +56,6 @@ export default function RootLayout() {
         <Stack.Screen name="(admin)" />
       </Stack>
       <StatusBar style="light" />
-    </>
+    </GestureHandlerRootView>
   );
 }

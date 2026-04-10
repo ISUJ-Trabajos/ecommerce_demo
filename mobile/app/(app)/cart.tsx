@@ -52,16 +52,6 @@ export default function CartScreen() {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          title: 'Mi Carrito',
-          headerStyle: { backgroundColor: Colors.surface },
-          headerTintColor: Colors.text,
-          headerTitleStyle: { fontFamily: 'Syne_700Bold' },
-          headerShadowVisible: false,
-        }}
-      />
 
       {error ? (
         <View style={styles.globalError}>

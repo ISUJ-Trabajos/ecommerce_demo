@@ -1,7 +1,7 @@
 const db = require('../../config/db');
 
 async function checkout(userId) {
-  const connection = await db.getConnection();
+  const connection = await db.pool.getConnection();
   try {
     // Llamar al Stored Procedure
     // CALL sp_create_order(p_user_id, @new_order_id, @error_msg)
@@ -32,7 +32,7 @@ async function checkout(userId) {
 
 async function getOrders(userId) {
   // Utilizamos la vista v_orders_summary creada en la bd
-  const [rows] = await db.query(
+  const [rows] = await db.pool.query(
     'SELECT * FROM v_orders_summary WHERE user_id = ? ORDER BY created_at DESC', 
     [userId]
   );
@@ -41,7 +41,7 @@ async function getOrders(userId) {
 
 async function getOrderDetails(orderId, userId) {
   // Obtener detalle de la orden validando que corresponda al usuario
-  const [orderRows] = await db.query(
+  const [orderRows] = await db.pool.query(
     'SELECT * FROM orders WHERE id = ? AND user_id = ?',
     [orderId, userId]
   );
@@ -53,7 +53,7 @@ async function getOrderDetails(orderId, userId) {
   const order = orderRows[0];
 
   // Obtener los ítems de la orden (unit_price es el precio histórico guardado)
-  const [itemRows] = await db.query(`
+  const [itemRows] = await db.pool.query(`
     SELECT oi.id, oi.product_id, oi.quantity, oi.unit_price, p.name, p.image_url
     FROM order_items oi
     JOIN products p ON p.id = oi.product_id

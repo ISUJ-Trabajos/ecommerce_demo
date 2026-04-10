@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ordersController = require('./orders.controller');
-const verifyJWT = require('../../middleware/verifyJWT');
+const { verifyJWT } = require('../../middleware/verifyJWT');
 
 // Todas las rutas de órdenes requieren autenticación
 router.use(verifyJWT);
