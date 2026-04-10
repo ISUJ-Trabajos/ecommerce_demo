@@ -183,9 +183,9 @@ ecommerce_demo/
 |------|--------|--------|
 | 0 | Infraestructura base (backend + mobile) | ✅ Completo |
 | 1 | Autenticación (registro + login) | ✅ Completo |
-| 2 | Catálogo + Detalle de producto | ⬜ Pendiente |
-| 3 | Carrito de compras | ⬜ Pendiente |
-| 4 | Checkout + confirmación | ⬜ Pendiente |
+| 2 | Catálogo + Detalle de producto | ✅ Completo |
+| 3 | Carrito de compras | ✅ Completo |
+| 4 | Checkout + confirmación | 🚧 En desarrollo |
 | 5 | Historial de pedidos | ⬜ Pendiente |
 | 6 | Panel de administración | ⬜ Pendiente |
 | 7 | Integración final + QA | ⬜ Pendiente |

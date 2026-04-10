@@ -1,6 +1,6 @@
 # Seguimiento del Desarrollo — ECommerce Demo
 
-> **Última actualización**: 2026-04-09
+> **Última actualización**: 2026-04-10
 > Este documento se actualiza al completar cada tarea. Utilizar como checklist de seguimiento.
 
 ---
@@ -191,7 +191,7 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 - [x] T4-03 · Precio congelado en order_items
 - [x] T4-04 · Carrito vacío → error
 
-**Estado Fase 4**: `[x]` Completado
+**Estado Fase 4**: `[/]` En progreso (Interfaz de Checkout verificada, Confirmación en desarrollo)
 
 ---
 
@@ -213,7 +213,7 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 - [x] T5-02 · Detalle incluye order_items
 - [x] T5-03 · OrderCard: expande/colapsa
 
-**Estado Fase 5**: `[x]` Completado
+**Estado Fase 5**: `[ ]` Pendiente (Dependiente de confirmación de compra)
 
 ---
 
@@ -260,13 +260,13 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 | Fase | Descripción | Estado | Progreso |
 |------|-------------|--------|----------|
 | 0 | Infraestructura | ✅ Completado | 100% |
-| 1 | Autenticación | ✅ Completado | 95% |
-| 2 | Catálogo + Detalle | ✅ Completado | 90% |
+| 1 | Autenticación | ✅ Completado | 100% |
+| 2 | Catálogo + Detalle | ✅ Completado | 100% |
 | 3 | Carrito | ✅ Completado | 100% |
-| 4 | Checkout | ✅ Completado | 100% |
-| 5 | Historial Pedidos | ✅ Completado | 100% |
+| 4 | Checkout | 🚧 En progreso | 85% |
+| 5 | Historial Pedidos | ⬜ Pendiente | 0% |
 | 6 | Admin | ⬜ Pendiente | 0% |
 | 7 | Integración + QA | ⬜ Pendiente | 0% |
 
-**Progreso Total**: ~75%
+**Progreso Total**: ~60%
 
