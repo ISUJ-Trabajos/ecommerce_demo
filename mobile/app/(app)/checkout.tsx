@@ -13,7 +13,7 @@ import { API_BASE_URL } from '@/constants/api';
 export default function CheckoutScreen() {
   const { total, items, clearCart } = useCartStore();
   const [loading, setLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [overlayStatus, setOverlayStatus] = useState<'hidden' | 'processing' | 'success'>('hidden');
   const router = useRouter();
 
   const handleCheckout = async () => {
@@ -23,11 +23,13 @@ export default function CheckoutScreen() {
     }
 
     setLoading(true);
+    setOverlayStatus('processing');
     try {
       await orderService.createOrder();
       clearCart();
-      setShowSuccess(true);
+      setOverlayStatus('success');
     } catch (error: any) {
+      setOverlayStatus('hidden');
       if (error.response?.status === 409) {
         Alert.alert(
           'Problema de Stock',
@@ -42,10 +44,19 @@ export default function CheckoutScreen() {
     }
   };
 
+  const handleSimulateCheckout = () => {
+    setLoading(true);
+    setOverlayStatus('processing');
+    setTimeout(() => {
+      setLoading(false);
+      setOverlayStatus('success');
+    }, 3000);
+  };
+
   return (
     <ScreenWrapper scrollable={false}>
       <View style={styles.container}>
-        <OrderSuccessOverlay visible={showSuccess} />
+        <OrderSuccessOverlay status={overlayStatus} onClose={() => setOverlayStatus('hidden')} />
 
         {/* Header con botón de retorno */}
         <View style={styles.header}>
@@ -53,7 +64,9 @@ export default function CheckoutScreen() {
             <Ionicons name="arrow-back" size={24} color={Colors.text} />
           </TouchableOpacity>
           <Text style={styles.pageTitle}>Checkout</Text>
-          <View style={{ width: 40 }} />
+          <TouchableOpacity onPress={handleSimulateCheckout} style={styles.debugButton}>
+            <Ionicons name="bug-outline" size={20} color={Colors.accent} />
+          </TouchableOpacity>
         </View>
 
         {/* Zona de productos — ocupa el espacio restante */}
@@ -134,6 +147,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
+  debugButton: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
   pageTitle: {
     fontFamily: 'Syne_700Bold',
     fontSize: 22,
@@ -154,7 +173,7 @@ const styles = StyleSheet.create({
   },
   productScrollContent: {
     paddingRight: 12, // espacio para la barra de scroll
-    scrollbarColor: Colors.accent,
+    // scrollbarColor: Colors.accent,
   },
   itemCard: {
     flexDirection: 'row',
