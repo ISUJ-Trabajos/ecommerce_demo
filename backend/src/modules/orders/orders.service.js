@@ -36,7 +36,10 @@ async function getOrders(userId) {
     'SELECT * FROM v_orders_summary WHERE user_id = ? ORDER BY created_at DESC', 
     [userId]
   );
-  return rows;
+  return rows.map(row => ({
+    ...row,
+    id: row.order_id
+  }));
 }
 
 async function getOrderDetails(orderId, userId) {

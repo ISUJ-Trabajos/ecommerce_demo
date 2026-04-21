@@ -1,6 +1,6 @@
 # Seguimiento del Desarrollo — ECommerce Demo
 
-> **Última actualización**: 2026-04-10
+> **Última actualización**: 2026-04-21
 > Este documento se actualiza al completar cada tarea. Utilizar como checklist de seguimiento.
 
 ---
@@ -191,7 +191,7 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 - [x] T4-03 · Precio congelado en order_items
 - [x] T4-04 · Carrito vacío → error
 
-**Estado Fase 4**: `[/]` En progreso (Interfaz de Checkout verificada, Confirmación en desarrollo)
+**Estado Fase 4**: `[x]` Completado
 
 ---
 
@@ -213,7 +213,15 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 - [x] T5-02 · Detalle incluye order_items
 - [x] T5-03 · OrderCard: expande/colapsa
 
-**Estado Fase 5**: `[ ]` Pendiente (Dependiente de confirmación de compra)
+**Estado Fase 5**: `[x]` Completado
+
+### Observaciones Fase 5
+
+**[RESUELTO — 2026-04-21]** Al acceder al Historial de Pedidos, la pantalla fallaba con 'undefined is not an object (evaluating item.id.toString())'.
+
+- **Causa raíz**: El componente `FlatList` en el frontend esperaba la propiedad `id` (por el tipo `Order`), pero la API retornaba un array desde la vista de base de datos `v_orders_summary`, donde el identificador de orden llevaba el alias `order_id`. Por lo tanto, `item.id` era `undefined`. 
+- **Solución**: Se actualizó `orders.service.js` para mapear explícitamente `row.order_id` a la propiedad `id` en la función `getOrders(userId)`. 
+- **Verificación**: Las órdenes se obtienen de la base de datos de manera correcta y se exponen con los esquemas de propiedades que Node/React espera. Emitido test local manual exitoso.
 
 ---
 
@@ -263,10 +271,11 @@ El `WARN Token inválido o expirado` era un efecto colateral: al fallar el login
 | 1 | Autenticación | ✅ Completado | 100% |
 | 2 | Catálogo + Detalle | ✅ Completado | 100% |
 | 3 | Carrito | ✅ Completado | 100% |
-| 4 | Checkout | 🚧 En progreso | 85% |
-| 5 | Historial Pedidos | ⬜ Pendiente | 0% |
+| 4 | Checkout | ✅ Completado | 100% |
+| 5 | Historial Pedidos | ✅ Completado | 100% |
 | 6 | Admin | ⬜ Pendiente | 0% |
 | 7 | Integración + QA | ⬜ Pendiente | 0% |
 
-**Progreso Total**: ~60%
+**Progreso Total**: ~80%
+
 

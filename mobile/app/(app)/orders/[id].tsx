@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenWrapper from '@/components/layout/ScreenWrapper';
 import { Colors } from '@/constants/colors';
 import { orderService, Order } from '@/services/orderService';
-import { API_URL } from '@/constants/api';
+import { API_BASE_URL } from '@/constants/api';
 
 export default function OrderDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -32,7 +32,7 @@ export default function OrderDetailsScreen() {
     return (
       <ScreenWrapper>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color={Colors.primary} />
+          <ActivityIndicator size="large" color={Colors.accent} />
         </View>
       </ScreenWrapper>
     );
@@ -54,14 +54,19 @@ export default function OrderDetailsScreen() {
   });
 
   return (
-    <ScreenWrapper>
-      <ScrollView contentContainerStyle={styles.container}>
+    <ScreenWrapper scrollable={false}>
+      <View style={styles.container}>
+
+        {/* Header fijo */}
         <View style={styles.header}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text} onPress={() => router.back()} />
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={24} color={Colors.text} />
+          </TouchableOpacity>
           <Text style={styles.pageTitle}>Detalle del Pedido</Text>
-          <View style={{ width: 24 }} />
+          <View style={{ width: 40 }} />
         </View>
 
+        {/* Tarjeta resumen fija */}
         <View style={styles.summaryCard}>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>ID Pedido:</Text>
@@ -77,46 +82,61 @@ export default function OrderDetailsScreen() {
               {order.status === 'completed' ? 'Pagado' : order.status}
             </Text>
           </View>
-          
           <View style={styles.divider} />
-          
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Total Pagado:</Text>
             <Text style={styles.totalValue}>${parseFloat(order.total).toFixed(2)}</Text>
           </View>
         </View>
 
-        <Text style={styles.sectionTitle}>Productos</Text>
-        
-        <View style={styles.itemsContainer}>
-          {order.items?.map((item, index) => (
-            <View key={item.id} style={[styles.itemCard, index > 0 && styles.itemCardBorder]}>
-              <View style={styles.imagePlaceholder}>
-                {item.image_url ? (
-                  <Image source={{ uri: `${API_URL}${item.image_url}` }} style={styles.image} />
-                ) : (
-                  <Ionicons name="image-outline" size={24} color={Colors.muted} />
-                )}
+        {/* Zona scrolleable de productos */}
+        <View style={styles.productsSection}>
+          <Text style={styles.sectionTitle}>Productos</Text>
+          <ScrollView
+            showsVerticalScrollIndicator={true}
+            indicatorStyle="white"
+            style={styles.productScroll}
+            contentContainerStyle={styles.productScrollContent}
+          >
+            {order.items?.map((item, index) => (
+              <View key={item.id} style={styles.itemCard}>
+                <View style={styles.imagePlaceholder}>
+                  {item.image_url ? (
+                    <Image source={{ uri: `${API_BASE_URL.replace('/api', '')}${item.image_url}` }} style={styles.image} />
+                  ) : (
+                    <Ionicons name="image-outline" size={24} color={Colors.muted} />
+                  )}
+                </View>
+                <View style={styles.itemInfo}>
+                  <Text style={styles.itemName} numberOfLines={2}>{item.name}</Text>
+                  <Text style={styles.itemQty}>Cantidad: {item.quantity}</Text>
+                </View>
+                <View style={styles.itemPriceInfo}>
+                  <Text style={styles.itemPrice}>${parseFloat(item.unit_price).toFixed(2)}</Text>
+                  <Text style={styles.subtotalText}>
+                    Subt: ${(parseFloat(item.unit_price) * item.quantity).toFixed(2)}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.itemInfo}>
-                <Text style={styles.itemName} numberOfLines={2}>{item.name}</Text>
-                <Text style={styles.itemQty}>Cantidad: {item.quantity}</Text>
-              </View>
-              <View style={styles.itemPriceInfo}>
-                <Text style={styles.itemPrice}>${parseFloat(item.unit_price).toFixed(2)}</Text>
-              </View>
-            </View>
-          ))}
+            ))}
+          </ScrollView>
         </View>
-        
-        {/* Fake address details as requested in tracking */}
-        <Text style={styles.sectionTitle}>Información de Entrega</Text>
-        <View style={styles.summaryCard}>
+
+        {/* Zona inferior fija */}
+        <View style={styles.bottomSection}>
+          <View style={styles.deliveryCard}>
+            <Text style={styles.deliverySectionTitle}>Información de Entrega</Text>
             <Text style={styles.infoText}>Avenida Siempre Viva 742</Text>
             <Text style={styles.infoText}>Springfield, EEUU</Text>
             <Text style={styles.mutedInfoText}>Método: Tarjeta de Crédito terminada en •••• 4242</Text>
+          </View>
+          <TouchableOpacity style={styles.backToHistoryButton} onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={16} color={Colors.accent} />
+            <Text style={styles.backToHistoryText}>Volver al Historial</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
+
+      </View>
     </ScreenWrapper>
   );
 }
@@ -134,14 +154,21 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   container: {
-    padding: 16,
-    paddingBottom: 40,
+    flex: 1,
+    paddingTop: 8,
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24,
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   pageTitle: {
     fontFamily: 'Syne_700Bold',
@@ -149,17 +176,18 @@ const styles = StyleSheet.create({
     color: Colors.text,
   },
   summaryCard: {
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 20,
-    marginBottom: 24,
+    marginHorizontal: 16,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: Colors.border,
   },
   summaryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    marginBottom: 10,
   },
   summaryLabel: {
     fontFamily: 'DMSans_400Regular',
@@ -174,44 +202,48 @@ const styles = StyleSheet.create({
   totalValue: {
     fontFamily: 'Syne_700Bold',
     fontSize: 18,
-    color: Colors.primary,
+    color: Colors.accent,
   },
   divider: {
     height: 1,
     backgroundColor: Colors.border,
     marginVertical: 12,
   },
+  productsSection: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
   sectionTitle: {
     fontFamily: 'Syne_700Bold',
     fontSize: 18,
     color: Colors.text,
-    marginBottom: 16,
+    marginBottom: 12,
   },
-  itemsContainer: {
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    marginBottom: 24,
+  productScroll: {
+    flex: 1,
+  },
+  productScrollContent: {
+    paddingRight: 4,
   },
   itemCard: {
     flexDirection: 'row',
-    padding: 16,
+    backgroundColor: Colors.surface,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: Colors.border,
     alignItems: 'center',
-  },
-  itemCardBorder: {
-    borderTopWidth: 1,
-    borderTopColor: Colors.border,
   },
   imagePlaceholder: {
     width: 60,
     height: 60,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.bg,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
     overflow: 'hidden',
+    marginRight: 12,
   },
   image: {
     width: '100%',
@@ -230,27 +262,69 @@ const styles = StyleSheet.create({
   itemQty: {
     fontFamily: 'DMSans_400Regular',
     fontSize: 12,
-    color: Colors.muted,
+    color: Colors.accent,
   },
   itemPriceInfo: {
-    marginLeft: 16,
     alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   itemPrice: {
     fontFamily: 'Syne_700Bold',
-    fontSize: 16,
+    fontSize: 15,
     color: Colors.text,
   },
+  subtotalText: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 12,
+    color: Colors.muted,
+    marginTop: 4,
+  },
+  bottomSection: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 16,
+    backgroundColor: Colors.bg,
+    borderTopWidth: 1,
+    borderTopColor: Colors.border,
+    gap: 12,
+  },
+  deliveryCard: {
+    backgroundColor: Colors.surface,
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  deliverySectionTitle: {
+    fontFamily: 'Syne_700Bold',
+    fontSize: 14,
+    color: Colors.text,
+    marginBottom: 8,
+  },
   infoText: {
-      fontFamily: 'DMSans_500Medium',
-      color: Colors.text,
-      fontSize: 14,
-      marginBottom: 4,
+    fontFamily: 'DMSans_500Medium',
+    color: Colors.text,
+    fontSize: 14,
+    marginBottom: 4,
   },
   mutedInfoText: {
-      fontFamily: 'DMSans_400Regular',
-      color: Colors.muted,
-      fontSize: 13,
-      marginTop: 8,
-  }
+    fontFamily: 'DMSans_400Regular',
+    color: Colors.muted,
+    fontSize: 13,
+    marginTop: 8,
+  },
+  backToHistoryButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 14,
+    backgroundColor: 'rgba(116, 184, 211, 0.15)',
+    borderRadius: 12,
+  },
+  backToHistoryText: {
+    fontFamily: 'DMSans_700Bold',
+    color: Colors.accent,
+    fontSize: 15,
+    marginLeft: 8,
+  },
 });

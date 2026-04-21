@@ -59,7 +59,7 @@ export default function OrderCard({ order }: Props) {
             onPress={() => router.push(`/(app)/orders/${order.id}`)}
           >
             <Text style={styles.detailsButtonText}>Ver Detalle Completo</Text>
-            <Ionicons name="arrow-forward" size={16} color={Colors.primary} />
+            <Ionicons name="arrow-forward" size={16} color={Colors.accent} />
           </TouchableOpacity>
         </View>
       )}
@@ -69,7 +69,7 @@ export default function OrderCard({ order }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     marginBottom: 12,
     borderWidth: 1,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 16,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.surface,
   },
   headerLeft: {
     justifyContent: 'center',
@@ -103,16 +103,15 @@ const styles = StyleSheet.create({
   totalText: {
     fontFamily: 'Syne_700Bold',
     fontSize: 16,
-    color: Colors.primary,
+    color: Colors.accent,
     marginBottom: 4,
   },
   expandedContent: {
     padding: 16,
-    paddingTop: 0,
+    paddingTop: 16,
     borderTopWidth: 1,
     borderTopColor: Colors.border,
     marginTop: 8,
-    paddingTop: 16,
   },
   infoRow: {
     flexDirection: 'row',
@@ -147,12 +146,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 8,
     paddingVertical: 12,
-    backgroundColor: 'rgba(215, 255, 6, 0.1)', // Fondo sutil primary
+    backgroundColor: 'rgba(116, 184, 211, 0.15)', // Fondo sutil accent celeste
     borderRadius: 8,
   },
   detailsButtonText: {
     fontFamily: 'DMSans_700Bold',
-    color: Colors.primary,
+    color: Colors.accent,
     fontSize: 14,
     marginRight: 6,
   },

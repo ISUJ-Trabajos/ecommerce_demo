@@ -34,16 +34,16 @@ export default function OrdersScreen() {
 
   if (loading) {
     return (
-      <ScreenWrapper>
+      <ScreenWrapper scrollable={false}>
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color={Colors.primary} />
+          <ActivityIndicator size="large" color={Colors.accent} />
         </View>
       </ScreenWrapper>
     );
   }
 
   return (
-    <ScreenWrapper>
+    <ScreenWrapper scrollable={false}>
       <View style={styles.container}>
         <Text style={styles.pageTitle}>Mis Pedidos</Text>
         
@@ -58,11 +58,11 @@ export default function OrdersScreen() {
         ) : (
           <FlatList
             data={orders}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item, index) => (item.id ?? (item as any).order_id ?? index).toString()}
             renderItem={({ item }) => <OrderCard order={item} />}
             contentContainerStyle={styles.listContent}
             refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={Colors.primary} />
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={Colors.accent} />
             }
           />
         )}
