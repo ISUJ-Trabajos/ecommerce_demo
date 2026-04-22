@@ -2,6 +2,8 @@
 
 Aplicación móvil de ecommerce desarrollada con **Expo / React Native** (frontend) y **Express + MySQL XAMPP** (backend API REST). Implementa un flujo completo de compra: catálogo, carrito, checkout con gestión de stock atómica, historial de pedidos y panel de administración.
 
+[![Demostración de la aplicación](https://img.youtube.com/vi/IuVC6l-aE3c/maxresdefault.jpg)](https://youtu.be/IuVC6l-aE3c)
+
 ---
 
 ## Stack Tecnológico
